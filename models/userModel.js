@@ -3,6 +3,12 @@ import {DataTypes } from "sequelize";
 import sequelize from "../database/dbconnection.js";
 
 const User = sequelize.define('User', {
+    userId: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
+
     userEmail: {
         type: DataTypes.STRING,
         allowNull: false,

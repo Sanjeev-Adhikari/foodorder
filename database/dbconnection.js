@@ -10,7 +10,10 @@ const sequelize = new Sequelize({
   port: DATABASE_PORT,
 });
 
+
+
 sequelize.authenticate()
+
   .then(() => {
     console.log("Database connected successfully");
   })
@@ -18,9 +21,14 @@ sequelize.authenticate()
     console.error("Error connecting to the database:", err);
   });
 
-sequelize.sync({ force: true })
+sequelize.sync({ force: false, })
   .then(() => {
     console.log("Models are synced");
   });
+
+
+
+
+
 
 export default sequelize;

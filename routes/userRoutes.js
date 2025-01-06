@@ -1,15 +1,16 @@
 import express from 'express';
 import UserController from '../controllers/userController.js';
+import { handleErrors } from '../middlewares/catchAsync.js';
 
 const router = express.Router();
 
 //routes starts
 
 router.route("/register")
-.post(UserController.registerUser);
+.post(handleErrors(UserController.registerUser));
 
 router.route("/login")
-.post(UserController.loginUser);
+.post(handleErrors(UserController.loginUser));
 
 //routes ends
 
