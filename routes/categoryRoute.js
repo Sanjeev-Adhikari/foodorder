@@ -13,6 +13,7 @@ router.route("/")
 
 router.route("/:id")
 .get(handleErrors(categoryController.getSingleCategory))
+.patch(authenticate.isAuthenticated, authenticate.restrictTo("admin"), handleErrors(categoryController.updateCategory))
 .delete(authenticate.isAuthenticated, authenticate.restrictTo("admin"), handleErrors(categoryController.deleteCategory))
 // routes
 

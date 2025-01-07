@@ -16,7 +16,11 @@ class AuthenticationMiddleware{
         // verify token
         try {
             const decoded = await promisify(jwt.verify)(token, SECRET_KEY)
-            const userExists = await User.findOne({_id: decoded._id})
+            const userExists = await User.findOne({where: {
+                userId: decoded.id
+            }})
+            console.log(userExists)
+            console.log(decoded)
             if(!userExists){
                 return res.status(404).json({
                     success: false,
@@ -38,7 +42,7 @@ class AuthenticationMiddleware{
     
         restrictTo(...roles) {
             return (req, res, next) => {
-                const userRole = req.user?.dataValues?.role;
+                const userRole = req.user?.role;
                 console.log("User role:", userRole);
                 console.log("Allowed roles:", roles);
                 console.log("Condition check:", roles.includes(userRole)); 

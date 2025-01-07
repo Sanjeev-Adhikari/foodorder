@@ -91,6 +91,31 @@ class CategoryController{
     });
     return;
    }
+   
+   async updateCategory(req, res){
+    const {id} = req.params;
+    const {categoryName} = req.body
+    const updatecategory = await Category.findOne({where: {
+        categoryId: id
+    }})
+
+    if(!updatecategory){
+        res.status(404).json({
+            success: false,
+            message: "no category with that id"
+        });
+        return;
+    }
+    if(categoryName) updatecategory.categoryName = categoryName;
+
+    await updatecategory.save();
+
+    res.status(200).json({
+        success: true,
+        message: "category updated successfully",
+        data: updatecategory
+    })
+   }
 
    async deleteCategory(req, res){
     const {id} = req.params

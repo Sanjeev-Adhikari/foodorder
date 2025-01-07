@@ -61,6 +61,7 @@ class UserController{
                 userEmail
             }
         })
+        console.log(isEmail)
 
         if(!isEmail){
             res.status(400).json({
@@ -80,7 +81,7 @@ class UserController{
             return
         }
 
-        const token = jwt.sign({id:isEmail.id}, SECRET_KEY, {expiresIn: "2h"})
+        const token = jwt.sign({id:isEmail.userId}, SECRET_KEY, {expiresIn: "2h"})
 
         res.status(200).json({
             success: true,
